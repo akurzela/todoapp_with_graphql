@@ -3,13 +3,14 @@ import './App.css';
 import {addTodo, deleteTodo} from './graphql/mutations'
 import {listTodos} from './graphql/queries'
 import {onAddTodo} from './graphql/subscriptions'
-import {API, graphqlOperation} from 'aws-amplify'
+import {API} from 'aws-amplify'
 import { useEffect, useState } from 'react';
 
 function App() {
 
   const [todoData, setTodoData] = useState([])
-  const [newTodoSubscriptionMessage, setNewTodoSubscriptionMessage] = useState("No new todo message yet...")
+  const [newTodoSubscriptionMessage, setNewTodoSubscriptionMessage] = useState([])
+  const [subscriptionVar, setSubscriptionVar] = useState()
 
   useEffect(() => {
     try {
@@ -77,16 +78,35 @@ function App() {
 
   const handleTodoSubscription = async () => {
     try {
-      const subscription = await API.graphql({
+      const res = await API.graphql({
         query: onAddTodo,
         authToken: "custom-authorized"
       })
       .subscribe({
         next: newTodoSubMessage => {
-          setNewTodoSubscriptionMessage(newTodoSubMessage.value.data.onAddTodo.name)
+          const todoDetails = {
+            name: newTodoSubMessage.value.data.onAddTodo.name,
+            description: newTodoSubMessage.value.data.onAddTodo.description,
+            priority: newTodoSubMessage.value.data.onAddTodo.priority,
+            status: newTodoSubMessage.value.data.onAddTodo.status
+          }
+
+          setNewTodoSubscriptionMessage((curTodoMessage) => {
+            return [...curTodoMessage, JSON.stringify(todoDetails)]
+          })
         }
       })
+
+      setSubscriptionVar(res)
       
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleTodoUnSubscription = async () => {
+    try {
+      subscriptionVar.unsubscribe()
     } catch (error) {
       console.log(error)
     }
@@ -130,7 +150,8 @@ function App() {
         </ul>
       </main>
       <h3> Subscribe to new todos</h3>
-      <button onClick={handleTodoSubscription}>Click to Subscribe</button>
+      <button onClick={handleTodoSubscription}>Subscribe</button>
+      <button onClick={handleTodoUnSubscription}>Unsubscribe</button>
       <div>
         <h2>{newTodoSubscriptionMessage}</h2>
       </div>
