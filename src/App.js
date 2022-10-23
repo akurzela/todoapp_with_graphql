@@ -2,19 +2,20 @@ import logo from './logo.svg';
 import './App.css';
 import {addTodo, deleteTodo} from './graphql/mutations'
 import {listTodos} from './graphql/queries'
-import {API} from 'aws-amplify'
+import {onAddTodo} from './graphql/subscriptions'
+import {API, graphqlOperation} from 'aws-amplify'
 import { useEffect, useState } from 'react';
 
 function App() {
 
   const [todoData, setTodoData] = useState([])
+  const [newTodoSubscriptionMessage, setNewTodoSubscriptionMessage] = useState("No new todo message yet...")
 
   useEffect(() => {
     try {
       const fetchTodos = async () => {
         const res = await API.graphql({
           query: listTodos,
-          authMode: 'AWS_LAMBDA',
           authToken: "custom-authorized"
         })
         return res.data.listTodos.todos
@@ -44,7 +45,6 @@ function App() {
             status: target.status.value
           }
         },
-        authMode: 'AWS_LAMBDA',
         authToken: "custom-authorized"
       })
 
@@ -66,12 +66,28 @@ function App() {
             id: todoId
           }
         },
-        authMode: 'AWS_LAMBDA',
         authToken: "custom-authorized"
       })
       setTodoData(newTodoData)
     }
     catch(error){
+      console.log(error)
+    }
+  }
+
+  const handleTodoSubscription = async () => {
+    try {
+      const subscription = await API.graphql({
+        query: onAddTodo,
+        authToken: "custom-authorized"
+      })
+      .subscribe({
+        next: newTodoSubMessage => {
+          setNewTodoSubscriptionMessage(newTodoSubMessage.value.data.onAddTodo.name)
+        }
+      })
+      
+    } catch (error) {
       console.log(error)
     }
   }
@@ -113,6 +129,11 @@ function App() {
           ))}
         </ul>
       </main>
+      <h3> Subscribe to new todos</h3>
+      <button onClick={handleTodoSubscription}>Click to Subscribe</button>
+      <div>
+        <h2>{newTodoSubscriptionMessage}</h2>
+      </div>
     </div>
   
   );
