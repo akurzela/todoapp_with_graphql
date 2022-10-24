@@ -29,7 +29,6 @@ export const List = () => {
     }
   }
 
-
   return (
     <div id="app">
       < div id="header" > <Heading level={2}>AWS AppSync Multi-Region Active-Active Demo</Heading></div >
