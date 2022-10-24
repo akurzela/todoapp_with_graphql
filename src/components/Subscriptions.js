@@ -1,8 +1,8 @@
 import { onAddTodo } from '../graphql/subscriptions'
 import { API } from 'aws-amplify'
 import { useState } from 'react';
-import { Grid, View, Heading, Alert } from '@aws-amplify/ui-react';
-import { Card } from '@aws-amplify/ui-react';
+import { Heading, Alert } from '@aws-amplify/ui-react';
+
 
 
 
@@ -50,35 +50,11 @@ export const Subscriptions = ({ todoData, handleTodoDelete }) => {
   return (
     <div>
       <Heading level={3}>Todo Notifications</Heading>
-      <button className="button-sub" onClick={handleTodoSubscription}>Subscribe</button>
-      <button className="button-sub" onClick={handleTodoUnSubscription}>Unsubscribe</button>
-
-
-      <h3> Subscribe to new todos</h3>
-
-      {
-        todoData.map((todo) => (
-          <Card margin="medium">
-            <div
-              key={todo.id}
-              onClick={(e) => handleTodoDelete(todo.id)} >
-              <Grid
-                templateColumns="1fr 1fr 1fr 1fr"
-                templateRows="1rem 1rem"
-                gap='small'
-              >
-                <View >Name: {todo.name}</View>
-                <View >Description: {todo.description}</View>
-                <View >Priority: {todo.priority}</View>
-                <View >Status: {todo.status}</View>
-              </Grid>
-
-            </div>
-          </Card>
-        ))
+      {subscriptionVar ? <button className="button-sub" onClick={handleTodoUnSubscription}>Unsubscribe</button> : <button className="button-sub" onClick={handleTodoSubscription}>Subscribe</button>
       }
+      <h3> Subscribe to the new todos</h3>
       <div>
-        {newTodoSubscriptionMessage ? <Alert variation="info">{newTodoSubscriptionMessage}</Alert> : ''}
+        {newTodoSubscriptionMessage ? newTodoSubscriptionMessage.map((row) => (<Alert margin="5px" width="100%" variation="success"><div key={row.name}>{row}</div></Alert>)) : ''}
       </div>
     </div >
 
