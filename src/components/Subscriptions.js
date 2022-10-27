@@ -2,7 +2,7 @@ import { onAddTodo } from '../graphql/subscriptions'
 import { API } from 'aws-amplify'
 import { useState } from 'react';
 import { Heading, Alert } from '@aws-amplify/ui-react';
-
+import '@aws-amplify/ui-react/styles.css';
 
 
 
@@ -42,6 +42,7 @@ export const Subscriptions = ({ todoData, handleTodoDelete }) => {
   const handleTodoUnSubscription = async () => {
     try {
       subscriptionVar.unsubscribe()
+      setSubscriptionVar(false)
     } catch (error) {
       console.log(error)
     }

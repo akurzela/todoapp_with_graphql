@@ -49,6 +49,10 @@ form {
 
 .button-sub {
   cursor: pointer;
+  padding: 10px;
+  font-weight: 700;
+  font-size: larger;
+  border-color: var(--amplify-green);
   float: right;
   background: white;
   margin: 20px 0;
