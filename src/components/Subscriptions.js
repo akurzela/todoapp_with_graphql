@@ -23,7 +23,8 @@ export const Subscriptions = ({ todoData, handleTodoDelete }) => {
               name: newTodoSubMessage.value.data.onAddTodo.name,
               description: newTodoSubMessage.value.data.onAddTodo.description,
               priority: newTodoSubMessage.value.data.onAddTodo.priority,
-              status: newTodoSubMessage.value.data.onAddTodo.status
+              createdAt: newTodoSubMessage.value.data.onAddTodo.createdAt,
+              createdInRegion: newTodoSubMessage.value.data.onAddTodo.createdInRegion,
             }
 
             setNewTodoSubscriptionMessage((curTodoMessage) => {
