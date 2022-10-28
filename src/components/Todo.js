@@ -33,6 +33,7 @@ export const Todo = (props,) => {
 
   return (
     <Table
+
       textAlign="left"
       size="small"
       caption=""
@@ -40,11 +41,13 @@ export const Todo = (props,) => {
       <TableHead>
         <TableRow size="small">
           {/* <TableCell as="th">Id</TableCell> */}
-          <TableCell as="th">Name</TableCell>
-          <TableCell as="th">Description</TableCell>
-          <TableCell as="th">Priority</TableCell>
-          <TableCell as="th">Status</TableCell>
-          <TableCell as="th">Remove</TableCell>
+          <TableCell width="14%" as="th">Name</TableCell>
+          <TableCell width="15%" as="th">Description</TableCell>
+          <TableCell width="14%" as="th">Priority</TableCell>
+          <TableCell width="14%" as="th">Created At</TableCell>
+          <TableCell width="14%" as="th">Created In</TableCell>
+          <TableCell width="14%" as="th">Status</TableCell>
+          <TableCell width="14%" as="th">Remove</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -59,6 +62,8 @@ export const Todo = (props,) => {
             <TableCell align="right">{row.name}</TableCell>
             <TableCell align="right">{row.description}</TableCell>
             <TableCell align="right">{row.priority}</TableCell>
+            <TableCell align="right">{row.createdAt}</TableCell>
+            <TableCell align="right">{row.createdInRegion}</TableCell>
             <TableCell align="right">{row.status}</TableCell>
             <TableCell align="right">
               <HighlightOffIcon
