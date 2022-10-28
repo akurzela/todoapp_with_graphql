@@ -8,6 +8,8 @@ export const addTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -19,6 +21,8 @@ export const deleteTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -30,6 +34,8 @@ export const updateTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -41,6 +47,8 @@ export const addTodoGlobalSync = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -52,6 +60,8 @@ export const deleteTodoGlobalSync = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -63,6 +73,8 @@ export const updateTodoGlobalSync = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }

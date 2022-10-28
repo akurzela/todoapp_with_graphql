@@ -9,6 +9,8 @@ export const listTodos = /* GraphQL */ `
         name
         description
         priority
+        createdAt
+        createdInRegion
         status
       }
       nextToken
@@ -22,6 +24,8 @@ export const getTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }

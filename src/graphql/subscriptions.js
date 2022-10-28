@@ -8,6 +8,8 @@ export const onAddTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -19,6 +21,8 @@ export const onDeleteTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
@@ -30,6 +34,8 @@ export const onUpdateTodo = /* GraphQL */ `
       name
       description
       priority
+      createdAt
+      createdInRegion
       status
     }
   }
