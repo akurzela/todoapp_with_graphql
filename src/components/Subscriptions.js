@@ -26,11 +26,14 @@ export const Subscriptions = ({ todoData, handleTodoDelete }) => {
               createdAt: newTodoSubMessage.value.data.onAddTodo.createdAt,
               createdInRegion: newTodoSubMessage.value.data.onAddTodo.createdInRegion,
               status: newTodoSubMessage.value.data.onAddTodo.status,
+              timeReceived: new Date().toJSON(),
             }
 
             setNewTodoSubscriptionMessage((curTodoMessage) => {
               return [...curTodoMessage, JSON.stringify(todoDetails)]
-            })
+            }
+            )
+
           }
         })
 
